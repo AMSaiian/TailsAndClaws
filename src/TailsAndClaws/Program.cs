@@ -29,7 +29,14 @@ using (var scope = app.Services.CreateScope())
 
     if (bool.TryParse(builder.Configuration.GetSection("Seeding").Value, out bool value) && value)
     {
-        await appDbInitializer.SeedAsync();
+        const int defaultDogsAmount = 5;
+        int.TryParse(builder.Configuration.GetSection("DogsSeedingAmount").Value, out int amount);
+
+        amount = amount > 0
+            ? amount
+            : defaultDogsAmount;
+
+        await appDbInitializer.SeedAsync(amount);
     }
 }
 

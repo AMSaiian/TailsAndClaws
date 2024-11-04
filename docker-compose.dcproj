@@ -6,7 +6,7 @@
     <ProjectGuid>6D0578AF-CF4F-46D1-B5ED-5E9E5A25BCFE</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>tails-and-claws</DockerServiceName>
+    <DockerServiceName>tails_and_claws_app</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.yml" />

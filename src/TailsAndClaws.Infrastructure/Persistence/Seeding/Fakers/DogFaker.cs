@@ -10,12 +10,14 @@ public sealed class DogFaker : Faker<Dog>
     public DogFaker()
     {
         RuleFor(dog => dog.Name,
-                faker => faker.Name.FirstName()
-                    .ClampLength(max: ValidationConstants.NameLength));
+                faker => (faker.Name.FirstName() + Guid.NewGuid())
+                    .ClampLength(
+                        max: ValidationConstants.NameLength));
 
         RuleFor(dog => dog.Color,
                 faker => faker.Lorem.Sentence()
-                    .ClampLength(max: ValidationConstants.ColorLength));
+                    .ClampLength(
+                        max: ValidationConstants.ColorLength));
 
         RuleFor(dog => dog.WeightInKg,
                 faker => faker.Random
