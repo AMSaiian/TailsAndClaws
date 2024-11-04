@@ -1,0 +1,50 @@
+﻿networks:
+  tails-and-claws-network:
+    driver: bridge
+
+services:
+  tails-and-claws:
+    container_name: tails-and-claws-backend
+    image: ${DOCKER_REGISTRY-}tails-and-claws:latest
+    depends_on:
+      - db-storage
+    restart: always
+
+    build:
+      context: .
+      dockerfile: src/TailsAndClaws/Dockerfile
+
+    ports:
+      - ${APP_HTTP_PORT}:${HOST_HTTP_PORT}
+      - ${APP_HTTPS_PORT}:${HOST_HTTPS_PORT}
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${APPLICATION_ENVIRONMENT_NAME}
+      ConnectionStrings__Application: ${APPLICATION_CONNECTION_STRING}
+      SEEDING: ${INCLUDE_SEEDING}
+
+    networks:
+      - taskio-network
+
+    volumes:
+      - tails-and-claws-logs:/app/tails-and-claws-logs
+
+  db-storage:
+    container_name: tails-and-claws-postgresql
+    image: postgres:latest
+    restart: always
+
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB_NAME}
+      POSTGRES_PORT: ${PG_PORT}
+
+    ports:
+      - ${PG_PORT}:${PG_HOST_PORT}
+
+    networks:
+      - tails-and-claws-network
+
+    volumes:
+      - tails-and-claws-pgdata:/var/lib/postgresql/data

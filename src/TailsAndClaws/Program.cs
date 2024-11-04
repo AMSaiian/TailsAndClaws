@@ -1,13 +1,37 @@
+using AMSaiian.Shared.Web.Middlewares;
+using Serilog;
+using TailsAndClaws;
+using TailsAndClaws.Application;
+using TailsAndClaws.Infrastructure;
+using TailsAndClaws.Infrastructure.Persistence.Seeding.Initializers;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Add services to the container.
+builder.Host.UseLogging(builder.Services, builder.Configuration);
+
+builder.Services.AddApplicationServices();
+builder.Services.AddApplicationInfrastructure(builder.Configuration, "Application");
+builder.Services.AddApiServices(builder.Configuration);
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 var app = builder.Build();
+
+// Initialise and seed database
+using (var scope = app.Services.CreateScope())
+{
+    var appDbInitializer = scope.ServiceProvider
+        .GetRequiredService<IAppDbContextInitializer>();
+
+    await appDbInitializer.ApplyDatabaseStructure();
+
+    if (bool.TryParse(builder.Configuration.GetSection("Seeding").Value, out bool value) && value)
+    {
+        await appDbInitializer.SeedAsync();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -17,9 +41,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.UseSerilogRequestLogging();
+app.UseExceptionHandler();
+app.UseRateLimiter();
 app.MapControllers();
 
 await app.RunAsync();
+
+namespace TailsAndClaws
+{
+    public partial class Program;
+}

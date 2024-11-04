@@ -15,7 +15,8 @@ public class DogConfiguration : BaseEntityConfiguration<Dog>
 
         builder.ToTable(table =>
         {
-            table.AddGreaterThanZeroCheckConstraint("dogs_tail_length", "tail_length");
+            table.AddGreaterThanZeroCheckConstraint("dogs_tail_length_in_meters", "tail_length_in_meters");
+            table.AddGreaterThanZeroCheckConstraint("dogs_weight_in_kg", "weight_in_kg");
         });
 
         builder
