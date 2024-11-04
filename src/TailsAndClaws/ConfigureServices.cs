@@ -34,6 +34,8 @@ public static class ConfigureServices
 
         services.AddProblemDetails();
 
+        services.AddSwaggerGen();
+
         RateLimitOptions policyOptions = configuration
             .GetSection(RateLimitOptions.SectionName)
             .Get<RateLimitOptions>() ?? new RateLimitOptions();

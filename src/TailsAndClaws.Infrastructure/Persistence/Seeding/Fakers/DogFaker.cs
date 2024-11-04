@@ -15,7 +15,7 @@ public sealed class DogFaker : Faker<Dog>
 
         RuleFor(dog => dog.Color,
                 faker => faker.Lorem.Sentence()
-                    .ClampLength(ValidationConstants.ColorLength));
+                    .ClampLength(max: ValidationConstants.ColorLength));
 
         RuleFor(dog => dog.WeightInKg,
                 faker => faker.Random

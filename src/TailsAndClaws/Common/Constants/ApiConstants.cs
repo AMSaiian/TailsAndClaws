@@ -2,5 +2,5 @@
 
 public static class ApiConstants
 {
-    public static readonly string DefaultRateLimitingPolicyName = "Default";
+    public const string DefaultRateLimitingPolicyName = "Default";
 }
