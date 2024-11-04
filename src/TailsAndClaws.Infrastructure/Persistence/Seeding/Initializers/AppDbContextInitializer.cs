@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TailsAndClaws.Domain.Entities;
 using TailsAndClaws.Infrastructure.Persistence.Constants;
-using Task = System.Threading.Tasks.Task;
 
 namespace TailsAndClaws.Infrastructure.Persistence.Seeding.Initializers;
 

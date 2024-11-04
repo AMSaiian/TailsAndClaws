@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TailsAndClaws.Application.Dogs.Constants;
 using TailsAndClaws.Domain.Entities;
+using TailsAndClaws.Infrastructure.Persistence.Constraints;
 
 namespace TailsAndClaws.Infrastructure.Persistence.Configurations;
 
@@ -23,7 +24,16 @@ public class DogConfiguration : BaseEntityConfiguration<Dog>
             .IsRequired();
 
         builder
-            .HasIndex(dog => dog.Name)
+            .Property(dog => dog.NormalizedName)
+            .HasMaxLength(ValidationConstants.NameLength)
+            .HasComputedColumnSql(string.Format(
+                                      DataSchemeConstraints.UpperFunctionForColumnFormat,
+                                      "name"),
+                                  stored: true)
+            .IsRequired();
+
+        builder
+            .HasIndex(dog => dog.NormalizedName)
             .IsUnique();
 
         builder

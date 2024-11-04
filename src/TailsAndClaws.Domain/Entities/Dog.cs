@@ -19,6 +19,8 @@ public class Dog : BaseEntity, IOrdering
 
     public string Name { get; set; } = default!;
 
+    public string NormalizedName { get; private set; } = default!;
+
     public decimal TailLengthInMeters { get; set; }
 
     public decimal WeightInKg { get; set; }

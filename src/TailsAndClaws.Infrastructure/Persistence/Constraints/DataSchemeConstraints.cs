@@ -7,4 +7,5 @@ public static class DataSchemeConstraints
     public static readonly string KeyGenerationExtensionName = "uuid-ossp";
     public static readonly string KeyType = "uuid";
     public static readonly string KeyTypeDefaultValue = "uuid_generate_v4()";
+    public static readonly string UpperFunctionForColumnFormat = "UPPER({0})";
 }
