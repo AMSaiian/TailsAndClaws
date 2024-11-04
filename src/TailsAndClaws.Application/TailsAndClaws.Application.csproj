@@ -11,4 +11,12 @@
     <ProjectReference Include="..\TailsAndClaws.Domain\TailsAndClaws.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+  </ItemGroup>
+
 </Project>
