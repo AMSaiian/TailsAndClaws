@@ -71,6 +71,7 @@ dotnet run --project src/TailsAndClaws/TailsAndClaws.csproj --no-build
 - Swagger UI (HTTP): http://localhost/swagger/index.html (with conventional HTTP port 80) !!! due to Swagger UI can't
   handle redirect, use HTTPS
 - The PostgreSQL database is accessible on port 5433 (using Docker run) or on port 5432 (using local run)
+![2](https://github.com/user-attachments/assets/cc695cf7-d040-427b-8e53-dd8c5566f2d0)
 
 ------------
 
@@ -124,6 +125,8 @@ dotnet run --project src/TailsAndClaws/TailsAndClaws.csproj --no-build
 - #### Testing
 
 1. Unit testing using InMemory DbContext and Moq Mocks. Most non-trivial logic was covered with unit-tests
+   ![3](https://github.com/user-attachments/assets/166a9d3d-5afb-40b7-bfc0-2066448bbf17)
+
 
 ## Q&A
 
@@ -133,11 +136,16 @@ dotnet run --project src/TailsAndClaws/TailsAndClaws.csproj --no-build
    This is not issue due to during first start there is init of Postgres volume and other heavy processes,
    which can make Db container unavailable during some time. Docker Compose of project has been designed to handle this
    situation with `"Restart always"`, so just wait some time and then application is going to be ready to work properly
+3. There are some posibility that you encounter issue like provided at screenshot from below. This issue is connected
+   to usage of *DEV SSL Certificates*, which created during Docker container building. Just accept warning using link 
+   highlighted with red.
+   ![1](https://github.com/user-attachments/assets/c47cd7df-6401-4966-bd5b-3461ed3b7c43)
+
 
 ## Possible enhancements
 
 1. Considering the controversial nature of the EF Core usage, these project ignores *Repository pattern* wrapper for EF
    DbContext for simplicity and straightforwardness, however author doesn't refuse *Repository pattern* usage
    possibility and agrees implementing and maintaining it
-2. Considering usage of *DDD principles* in this project, it would be nice to migrate from *Anemic domain model* *Rich
+2. Considering usage of *DDD principles* in this project, it would be nice to migrate from *Anemic domain model* to *Rich
    domain model* by implementing domain services. However, this step has been skipped for simplicity
