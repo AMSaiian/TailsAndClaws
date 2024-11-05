@@ -5,10 +5,12 @@ using AMSaiian.Shared.Web.Options;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
 using TailsAndClaws.Application.Dogs.Commands.CreateDog;
 using TailsAndClaws.Application.Dogs.Queries.GetDogs;
 using TailsAndClaws.Application.Dogs.ViewModels;
+using TailsAndClaws.Common.Constants;
 using TailsAndClaws.Common.Contract.Requests.Dogs;
 using TailsAndClaws.Domain.Constants;
 
@@ -16,6 +18,7 @@ namespace TailsAndClaws.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[EnableRateLimiting(ApiConstants.DefaultRateLimitingPolicyName)]
 [ProducesResponseType(StatusCodes.Status429TooManyRequests)]
 public class DogsController(
     ISender mediator,
