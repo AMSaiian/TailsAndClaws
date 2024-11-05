@@ -24,7 +24,7 @@ jobs:
       run: dotnet build TailsAndClaws.sln --configuration Release --no-restore
       
     - name: Run Unit Tests
-      run: dotnet test tests/TailsAndClaws.UnitTests/TailsAndClaws.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test tests/TailsAndClaws.UnitTests/TailsAndClaws.UnitTests.csproj --no-restore --verbosity minimal
       
     - name: Run Shared Unit Tests
-      run: dotnet test tests/AMSaiian.Shared.UnitTests/AMSaiian.Shared.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test tests/AMSaiian.Shared.UnitTests/AMSaiian.Shared.UnitTests.csproj --no-restore --verbosity minimal
