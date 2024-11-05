@@ -36,11 +36,13 @@ public class CreateDogHandlerTests : IAsyncDisposable
             Name = "Test Dog",
             Color = "Blue",
             WeightInKg = 1.145M,
-            TailLengthInMeters = 0.554M,
+            TailLengthInMeters = 0.554M
         };
 
-        // Act & Assert
+        // Act
         Func<Task<Guid>> action = async () => await _handler.Handle(command, CancellationToken.None);
+
+        // Assert
         (await action
                 .Should()
                 .NotThrowAsync())
@@ -63,21 +65,21 @@ public class CreateDogHandlerTests : IAsyncDisposable
                 Name = existingDog.Name.ToLowerInvariant(),
                 Color = "Red",
                 WeightInKg = 0.954M,
-                TailLengthInMeters = 0.123M,
+                TailLengthInMeters = 0.123M
             },
             new()
             {
                 Name = existingDog.Name.ToUpperInvariant(),
                 Color = "Red",
                 WeightInKg = 0.954M,
-                TailLengthInMeters = 0.123M,
+                TailLengthInMeters = 0.123M
             },
             new()
             {
                 Name = existingDog.Name,
                 Color = "Red",
                 WeightInKg = 0.954M,
-                TailLengthInMeters = 0.123M,
+                TailLengthInMeters = 0.123M
             }
         ];
 

@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TailsAndClaws.UnitTests", "tests\TailsAndClaws.UnitTests\TailsAndClaws.UnitTests.csproj", "{2DC2053A-B4B3-45D6-932B-E3F14445DC44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSaiian.Shared.UnitTests", "tests\AMSaiian.Shared.UnitTests\AMSaiian.Shared.UnitTests.csproj", "{598CFFBB-8A93-4821-8598-B43F7F4C47E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,5 +67,9 @@ Global
 		{2DC2053A-B4B3-45D6-932B-E3F14445DC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DC2053A-B4B3-45D6-932B-E3F14445DC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DC2053A-B4B3-45D6-932B-E3F14445DC44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{598CFFBB-8A93-4821-8598-B43F7F4C47E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598CFFBB-8A93-4821-8598-B43F7F4C47E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598CFFBB-8A93-4821-8598-B43F7F4C47E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598CFFBB-8A93-4821-8598-B43F7F4C47E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

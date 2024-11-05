@@ -27,7 +27,7 @@ public class UnitTestFixture : IDisposable, IAsyncDisposable
             cfg =>
                 cfg.AddProfiles(
                 [
-                    new DogProfile(),
+                    new DogProfile()
                 ]));
         Mapper = config.CreateMapper();
     }

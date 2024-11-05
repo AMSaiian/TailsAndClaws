@@ -63,7 +63,7 @@ public class PaginationService(IOrderFactory factory) : IPaginationService
             PageNumber = context.PageNumber,
             PageSize = context.PageSize,
             TotalPages = totalPages,
-            TotalRecords = totalRecords,
+            TotalRecords = totalRecords
         };
 
         return info;

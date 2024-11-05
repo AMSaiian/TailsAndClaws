@@ -2,6 +2,7 @@ using AMSaiian.Shared.Web.Middlewares;
 using Serilog;
 using TailsAndClaws;
 using TailsAndClaws.Application;
+using TailsAndClaws.Common.Constants;
 using TailsAndClaws.Infrastructure;
 using TailsAndClaws.Infrastructure.Persistence.Seeding.Initializers;
 
@@ -27,10 +28,10 @@ using (var scope = app.Services.CreateScope())
 
     await appDbInitializer.ApplyDatabaseStructure();
 
-    if (bool.TryParse(builder.Configuration.GetSection("Seeding").Value, out bool value) && value)
+    if (bool.TryParse(builder.Configuration.GetSection(SeedingEnvConstants.SeedingEnabled).Value, out bool value) && value)
     {
         const int defaultDogsAmount = 5;
-        int.TryParse(builder.Configuration.GetSection("DogsSeedingAmount").Value, out int amount);
+        int.TryParse(builder.Configuration.GetSection(SeedingEnvConstants.DogsSeedingAmount).Value, out int amount);
 
         amount = amount > 0
             ? amount
