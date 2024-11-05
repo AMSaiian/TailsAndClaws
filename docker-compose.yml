@@ -1,0 +1,62 @@
+﻿name: tails_and_claws
+
+networks:
+  tails_and_claws_network:
+    driver: bridge
+
+volumes:
+  tails_and_claws_logs: {}
+  tails_and_claws_pgdata: {}
+
+services:
+  backend:
+    container_name: tails_and_claws_backend
+    image: ${DOCKER_REGISTRY-}tails-and-claws:latest
+    depends_on:
+      - db_storage
+    restart: always
+
+    build:
+      context: .
+      dockerfile: src/TailsAndClaws/Dockerfile
+      args:
+        TC_CERT_PASSWORD: ${TC_CERT_PASSWORD}
+
+    ports:
+      - ${APP_HTTP_PORT}:${HOST_HTTP_PORT}
+      - ${APP_HTTPS_PORT}:${HOST_HTTPS_PORT}
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${APPLICATION_ENVIRONMENT_NAME}
+      ConnectionStrings__Application: ${APPLICATION_CONNECTION_STRING}
+      ASPNETCORE_Kestrel__Certificates__Default__Password: ${TC_CERT_PASSWORD}
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/tailsAndClaws.pfx
+      SEEDING: ${INCLUDE_SEEDING}
+      DogsSeedingAmount: ${DOGS_AMOUNT_SEEDING}
+      ASPNETCORE_URLS: http://+:${HOST_HTTP_PORT};https://+:${HOST_HTTPS_PORT}
+
+    networks:
+      - tails_and_claws_network
+
+    volumes:
+      - tails_and_claws_logs:/app/tails_and_claws_logs
+
+  db_storage:
+    container_name: tails_and_claws_postgresql
+    image: postgres:latest
+    restart: always
+
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB_NAME}
+      POSTGRES_PORT: ${PG_PORT}
+
+    ports:
+      - ${PG_PORT}:${PG_HOST_PORT}
+
+    networks:
+      - tails_and_claws_network
+
+    volumes:
+      - tails_and_claws_pgdata:/var/lib/postgresql/data
