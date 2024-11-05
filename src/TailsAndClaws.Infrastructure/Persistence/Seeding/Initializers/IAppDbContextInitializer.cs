@@ -3,7 +3,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace TailsAndClaws.Infrastructure.Persistence.Seeding.Initializers;
 
-public interface IAppDbContextInitializer
+public interface IAppDbContextInitializer : IDisposable, IAsyncDisposable
 {
     public List<Dog> Dogs { get; }
 

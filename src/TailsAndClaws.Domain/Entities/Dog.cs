@@ -8,6 +8,8 @@ namespace TailsAndClaws.Domain.Entities;
 
 public class Dog : BaseEntity, IOrdering
 {
+    private string _name = default!;
+
     public static ReadOnlyDictionary<string, dynamic> OrderedBy { get; } = new(
         new Dictionary<string, dynamic>
         {
@@ -17,7 +19,15 @@ public class Dog : BaseEntity, IOrdering
             { DogConstants.OrderingBy.TailLength, (Expression<Func<Dog, decimal>>)(dog => dog.TailLengthInMeters) }
         });
 
-    public string Name { get; set; } = default!;
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            NormalizedName = value.ToUpperInvariant();
+        }
+    }
 
     public string NormalizedName { get; private set; } = default!;
 

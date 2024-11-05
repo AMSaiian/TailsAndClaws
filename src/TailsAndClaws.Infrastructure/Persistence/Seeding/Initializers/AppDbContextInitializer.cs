@@ -76,4 +76,14 @@ public class AppDbContextInitializer(
     {
         return !await _context.Dogs.AnyAsync();
     }
+
+    public void Dispose()
+    {
+        _context.Dispose();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await _context.DisposeAsync();
+    }
 }
