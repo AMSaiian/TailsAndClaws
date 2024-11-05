@@ -63,8 +63,12 @@ public static class ConfigureServices
                 options.LowercaseQueryStrings = true;
             });
         services
-            .Configure<RequestQueryOptions>(configuration
-                                                .GetRequiredSection(RequestQueryOptions.SectionName));
+            .Configure<RequestQueryOptions>
+                (configuration.GetRequiredSection(RequestQueryOptions.SectionName))
+            .Configure<RateLimitOptions>(
+                configuration.GetSection(RateLimitOptions.SectionName))
+            .Configure<PingEndpointOptions>(
+                configuration.GetSection(PingEndpointOptions.SectionName));
 
         services.AddControllers(opts => opts.Filters.Add<ApiExceptionFilterAttribute>())
             .AddJsonOptions(opts =>

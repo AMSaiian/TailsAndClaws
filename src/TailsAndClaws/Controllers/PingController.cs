@@ -15,6 +15,7 @@ public class PingController(IOptions<PingEndpointOptions> options) : ControllerB
     private readonly IOptions<PingEndpointOptions> _options = options;
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
     public Task<IActionResult> Ping(CancellationToken cancellationToken = default)
     {
         return Task
